@@ -43,7 +43,7 @@ public class Main{
             //algorithm here
             int answer;
             
-            answer = i*i'
+            answer = i*i;
             dataOutLines[i] = ""+answer+"\n";
         }
     }
