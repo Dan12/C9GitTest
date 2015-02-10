@@ -1,4 +1,4 @@
-package gcjtest;
+package gcjtemplate;
 
 import java.io.IOException;
 import java.io.FileReader;
