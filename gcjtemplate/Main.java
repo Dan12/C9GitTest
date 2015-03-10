@@ -10,8 +10,8 @@ import java.io.PrintWriter;
 public class Main{
     
     String filePath = new File("").getAbsolutePath();
-    String readFilePath = filePath.concat("/gcjtest/text.in");
-    String writeFilePath= filePath.concat("/gcjtest/text.out");
+    String readFilePath = filePath.concat("/gcjtemplate/text.in");
+    String writeFilePath= filePath.concat("/gcjtemplate/text.out");
     
     String[] dataInLines;
     
@@ -33,10 +33,14 @@ public class Main{
         writeData(dataOutLines);
     }
     
+    //solve problem using algorithm and store answer to each test case as a string in string array dataOutLines
     public void solve(){
         System.out.println("Solving");
         
-        int testCases = 10;
+        String[] firstLine = dataInLines[0].split(" ");
+        
+        int testCases = Integer.parseInt(firstLine[0]);
+        
         dataOutLines = new String[testCases];
         
         for(int i = 0; i < dataOutLines.length; i++){
@@ -44,24 +48,29 @@ public class Main{
             int answer;
             
             answer = i*i;
-            dataOutLines[i] = ""+answer+"\n";
+            dataOutLines[i] = ""+answer;
         }
     }
     
+    //method to read data into string array dataInLines
     public void readData(){
         try {
             ReadFile file = new ReadFile(readFilePath);
             dataInLines = file.OpenFile();
+            System.out.println("Data Read");
         }
         catch (IOException e){System.out.println(e.getMessage());}
     }
     
+    //method to write data in string array data to out file
     public void writeData(String[] data){
         String dataOut = "";
         System.out.println("Printing Answers");
         for(int i = 0; i < data.length; i++){
             dataOut+=data[i];
-            System.out.print(data[i]);
+            if(i < data.length-1)
+                dataOut+="\n";
+            System.out.println(data[i]);
         }
         try{
             WriteFile file = new WriteFile(writeFilePath, true);
@@ -71,6 +80,7 @@ public class Main{
         System.out.println("Done Printing Answers");
     }
     
+    //object that can return string array of all data in file
     public class ReadFile {
         
         private String path;
@@ -112,10 +122,11 @@ public class Main{
         }
     }
     
+    //Write answer to file
     public class WriteFile {
         
-         boolean append_to_file;
-         private String path;
+        boolean append_to_file;
+        private String path;
     
         public WriteFile(){
             append_to_file = false;
@@ -133,7 +144,7 @@ public class Main{
             FileWriter write =  new FileWriter(path, append_to_file);
             PrintWriter print_line = new PrintWriter(write);
             
-            print_line.printf("%s" + "\n", textLine);
+            print_line.printf("%s", textLine);
             
             print_line.close();
         }
